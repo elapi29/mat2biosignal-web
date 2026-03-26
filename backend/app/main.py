@@ -1,10 +1,10 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import shutil
 import subprocess
-import tempfile
 import uuid
 import zipfile
 
@@ -22,14 +22,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = BASE_DIR.parent
 ENGINE_DIR = PROJECT_ROOT / "engine"
 ENGINE_BINARY = ENGINE_DIR / "mat2biosignal"
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 JOBS_DIR = PROJECT_ROOT / "jobs"
 JOBS_DIR.mkdir(exist_ok=True)
+
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/")
+def serve_index():
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.post("/convert")

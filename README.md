@@ -1,28 +1,28 @@
 # mat2biosignal-web
 
-Minimal web interface for uploading MATLAB `.mat` biosignal files, running a C++ export engine, and downloading the generated CSV/TXT outputs as a ZIP.
-
-## Architecture
-
-- `frontend/` - static HTML/CSS/JS upload UI
-- `backend/` - FastAPI service
-- `engine/` - compiled `mat2biosignal` C++ binary
+Single-page web app for uploading MATLAB biosignal files and downloading analysis-ready CSV/TXT exports powered by a C++ backend.
 
 ## Features
 
-- Upload `.mat` file from the browser
-- Set an output prefix
-- Run the C++ exporter through a FastAPI backend
-- Package generated outputs into a ZIP
-- Download all exported files in one click
+- Upload MATLAB `.mat` files from the browser
+- Run a C++ export engine through FastAPI
+- Download generated CSV/TXT outputs as a ZIP
+- Single-process local app
+- One local URL
+- Visual processing state with loading spinner
+
+## Architecture
+
+- `backend/` - FastAPI app serving both API routes and frontend assets
+- `engine/` - compiled `mat2biosignal` C++ binary
+- `frontend/` - static UI assets served by FastAPI
 
 ## Local setup
 
-### Backend
+### Create the backend environment
 
 ```bash
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
