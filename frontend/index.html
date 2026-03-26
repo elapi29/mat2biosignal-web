@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mat2biosignal-web</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>mat2biosignal-web</h1>
+    <p class="subtitle">
+      Upload a MATLAB <code>.mat</code> file, run the C++ exporter, and download the generated CSV/TXT outputs as a ZIP.
+    </p>
+
+    <form id="uploadForm" class="card">
+      <label for="file">MATLAB file</label>
+      <input type="file" id="file" name="file" accept=".mat" required />
+
+      <label for="output_prefix">Output prefix</label>
+      <input
+        type="text"
+        id="output_prefix"
+        name="output_prefix"
+        placeholder="B01E"
+        required
+      />
+
+      <button type="submit" id="submitBtn">Convert</button>
+
+      <div id="loadingText" class="loading hidden">
+        <span class="spinner"></span>
+        <span>Running conversion...</span>
+      </div>
+    </form>
+
+    <section id="result" class="card hidden">
+      <h2>Result</h2>
+      <p id="message"></p>
+      <ul id="fileList"></ul>
+      <a id="downloadLink" href="#" class="download-btn hidden">Download ZIP</a>
+    </section>
+
+    <section id="errorBox" class="card error hidden">
+      <h2>Error</h2>
+      <pre id="errorText"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
